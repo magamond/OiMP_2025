@@ -64,7 +64,7 @@ void solve(){
     std::cout << "Random matrix:\n";
     output_arr(arr, size);
   }
-  std::cout << "The maximum element in the lower left triangle of the matrix: " << triangle_max(arr, size) << '\n';
+  std::cout << "The maximum element in the lower right triangle of the matrix: " << triangle_max(arr, size) << '\n';
   rearrange(arr, size);
   std::cout << "Rearranged matrix:\n";
   output_arr(arr, size);
@@ -177,3 +177,4 @@ void rearrange(int32_t** arr, int32_t size) {
     arr[x][i] = t;
   }
 }
+
