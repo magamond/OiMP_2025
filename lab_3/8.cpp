@@ -1,18 +1,20 @@
 #include <iostream>
 #include <ctime>
-#include <cmath>
+#include <math.h>
 #include <vector>
 #include <random>
 
 const int32_t MAX = 100;
-const int32_t MOD = 1e+7;
+const int32_t MOD = 1e+6;
 
 void random_arr(std::vector<double>& arr, int32_t& num, double& left, double& right);
 void input_arr(std::vector<double>& arr, int32_t& num);
 void validate_array_size(double arrSize);
 void validate_menu_choice(int32_t in);
 void validate_boundaries(double left, double right);
-void process_array(std::vector<double>& arr, int32_t num);
+void sum(std::vector<double>& arr, int32_t num);
+void product(int32_t mink, int32_t maxk, std::vector<double>& arr);
+
 void sort_array(std::vector<double>& arr, int32_t num);
 
 int32_t main() {
@@ -49,7 +51,7 @@ int32_t main() {
       std::cout << "Input n real numbers: ";
       input_arr(arr, num);
     }
-    process_array(arr, num);
+    sum(arr, num);
     sort_array(arr, num);
     std::cout << "Sorted array: ";
     for (size_t i = 0; i < num; i++) {
@@ -103,21 +105,31 @@ void validate_boundaries(double left, double right) {
   }
 }
 
-void process_array(std::vector<double>& arr, int32_t num) {
+void sum(std::vector<double>& arr, int32_t num) {
   double sum{}, maxk{}, mink{}, maxv = 0, minv = 1.0 * MAX;
   for (size_t i = 0; i < num; i++) {
     if (arr[i] > 0) sum += arr[i];
     if (abs(arr[i]) > maxv) {
       maxk = i;
-      maxv = arr[i];
+      maxv = abs(arr[i]);
     }
     if (abs(arr[i]) <= minv) {
       mink = i;
-      minv = arr[i];
+      minv = abs(arr[i]);
     }
   }
+  std::cout << "Sum: " << sum;
+  product(mink, maxk, arr);
+}
+
+void product(int32_t mink, int32_t maxk, std::vector<double>& arr) {
   double prod = 1;
   int32_t div = 0;
+  std::cout << "\nProduct: ";
+  if (std::min(mink, maxk) + 1 > std::max(mink, maxk) - 1) {
+    std::cout << 0 << '\n';
+    return;
+  }
   for (size_t i = std::min(mink, maxk) + 1; i <= std::max(mink, maxk) - 1; i++) {
     prod = (prod * arr[i]);
     div += (int32_t)prod / MOD;
@@ -125,16 +137,10 @@ void process_array(std::vector<double>& arr, int32_t num) {
       prod -= MOD;
     }
   }
-  std::cout << "Sum: " << sum << "\nProduct: ";
-  if (abs(maxk - mink) == 1) {
-    std::cout << 0 << '\n';
-  }
-  else {
-    if (div != 0) {
-      std::cout << div * 1e+7 << " + " << prod << '\n';
-    } else {
-      std:: cout << prod << '\n';
-    }
+  if (div != 0) {
+    std::cout << div * 1e+6 << " + " << prod << '\n';
+  } else {
+    std:: cout << prod << '\n';
   }
 }
 
