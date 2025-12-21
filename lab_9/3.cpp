@@ -46,5 +46,6 @@ void solve(std::ifstream& fin)
       ans++;
     }
   }
+  std::cout << "How many times does the word \"" << first << "\" appear in the text: ";
   std::cout << ans << '\n';
 }
