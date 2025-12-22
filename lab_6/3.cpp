@@ -169,7 +169,7 @@ template <typename T> void sort_matrix(std::vector<std::vector<T>>& matrix, size
 template <typename T> void output_matrix(std::vector<std::vector<T>>& matrix, size_t rows, size_t columns, std::ostream& out) {
     for (size_t i = 0; i < rows; ++i) {
         for (size_t j = 0; j < columns; ++j) {
-            out << matrix[i][j] << std::setw(5);
+            out << matrix[i][j] << std::setw(11);
         }
         out << '\n';
     }
@@ -270,3 +270,4 @@ template <typename T> void process_random_matrix(size_t rows, size_t columns) {
     std::cout << "Sorted matrix:\n";
     output_matrix<T>(matrix, rows, columns);
 }
+
